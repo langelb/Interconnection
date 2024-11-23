@@ -1,6 +1,7 @@
 package model.data_structures;
 
 import java.text.DecimalFormat;
+import java.util.logging.Logger;
 
 import sun.security.util.Debug;
 
@@ -12,6 +13,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 	private int tamanoTabla;
 	private double minicial;
 	private double cantidadRehash;
+	private static final Logger logger = Logger.getLogger(MinPQ.class.getName());
 	
 	public TablaHashSeparteChaining(int tamInicial)
 	{
@@ -29,7 +31,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 			} 
 			catch (PosException | NullException e) 
 			{
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 	}
@@ -55,7 +57,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 		} 
 		catch (PosException | VacioException | NullException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		tamanoAct++;
@@ -92,7 +94,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 		} 
 		catch (PosException | VacioException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		return retornar;
@@ -120,7 +122,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 		} 
 		catch (PosException | VacioException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		tamanoAct--;
 		return retornar;
@@ -180,7 +182,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 		catch (PosException | NullException | VacioException e) 
 		{
 			
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		return lista;
@@ -210,7 +212,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 		}
 		catch (PosException | NullException | VacioException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		return lista;
@@ -240,7 +242,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 		}
 		catch (PosException | NullException | VacioException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		return nodos;
@@ -278,7 +280,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 		}
 		catch (NullException| VacioException| PosException e)
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		cantidadRehash++;

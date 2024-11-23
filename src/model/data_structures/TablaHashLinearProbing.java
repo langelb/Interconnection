@@ -1,6 +1,7 @@
 package model.data_structures;
 
 import java.text.DecimalFormat;
+import java.util.logging.Logger;
 
 public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparable <V>> implements ITablaSimbolos<K, V>{
 
@@ -9,6 +10,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 	private int tamanoTabla;
 	private int minicial;
 	private int cantidadRehash;
+	private static final Logger logger = Logger.getLogger(MinPQ.class.getName());
 
 	public TablaHashLinearProbing(int tamInicial)
 	{
@@ -26,7 +28,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 			} 
 			catch (PosException | NullException e) 
 			{
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 	}
@@ -50,7 +52,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 		} 
 		catch (PosException | VacioException| NullException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		double tam= tamanoAct;
 		double tam2=tamanoTabla;
@@ -80,7 +82,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 		} 
 		catch (PosException | VacioException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		return posicionRetornar;
 	}
@@ -120,7 +122,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 			catch (PosException | VacioException e) 
 			{
 				
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 
@@ -172,7 +174,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 		}
 		catch (PosException | VacioException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 
 		return retornar;
@@ -218,7 +220,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 		}
 		catch (PosException | NullException | VacioException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 
 		return lista;
@@ -241,7 +243,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 			catch (PosException | NullException | VacioException e) 
 			{
 				
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 		return lista;
@@ -271,7 +273,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 		}
 		catch (PosException | NullException | VacioException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		return nodos;
@@ -303,7 +305,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 		}
 		catch (NullException| VacioException| PosException e)
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		cantidadRehash++;

@@ -34,7 +34,7 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 				}
 				pos=pos/2;
 			} catch (PosException | VacioException | NullException e) {				
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 	}
@@ -49,7 +49,7 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 		} 
 		catch (PosException | NullException e) {
 			
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		
@@ -73,7 +73,7 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 			}
 		} catch (PosException | VacioException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		return null;
@@ -112,7 +112,7 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 					pos=posMenor;
 				}
 			} catch (PosException | VacioException | NullException e) {				
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 	}
@@ -129,7 +129,7 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 				sink(arbol, 1);
 
 			} catch (PosException | VacioException | NullException e) {				
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 		else if(tamano>0){

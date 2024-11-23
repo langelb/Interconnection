@@ -11,7 +11,7 @@ public class PilaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 		try {
 			this.addLast(element);
 		} catch (NullException e) {
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 	}
 	
@@ -21,7 +21,7 @@ public class PilaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 		{
 			return this.removeLast();
 		} catch (VacioException e) {
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		return null;
 	}

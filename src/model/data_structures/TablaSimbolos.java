@@ -1,9 +1,13 @@
 package model.data_structures;
 
+import java.util.logging.Logger;
+
 public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> implements ITablaSimbolos<K, V>
 {
 
-	private ILista<NodoTS<K, V>> listaNodos; 
+	private ILista<NodoTS<K, V>> listaNodos;
+
+	private static final Logger logger = Logger.getLogger(MinPQ.class.getName());
 
 	public TablaSimbolos()
 	{
@@ -20,7 +24,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 		catch (PosException | NullException e) 
 		{
 			
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 	}
 
@@ -52,7 +56,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 			catch (PosException | VacioException e) 
 			{
 				
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 		return null;
@@ -71,7 +75,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 		catch (VacioException | NullException | PosException e) 
 		{
 			
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 
 		return eliminado1; 
@@ -89,7 +93,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 		catch (VacioException | NullException | PosException e) 
 		{
 			
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 
 		if (pos>0)
@@ -124,7 +128,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 			catch (PosException | NullException | VacioException e) 
 			{
 				
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 		return lista;
@@ -143,7 +147,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 			catch (PosException | VacioException| NullException e) 
 			{
 				
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 		return lista;

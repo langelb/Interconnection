@@ -1,13 +1,17 @@
 package model.data_structures;
 
+import java.util.logging.Logger;
+
 public class ColaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 {
+	private static final Logger logger = Logger.getLogger(MinPQ.class.getName());
+
 	public void enqueue(T element)
 	{
 		try {
 			this.addLast(element);
 		} catch (NullException e) {
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 	}
 	
@@ -18,7 +22,7 @@ public class ColaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 		{
 			retorno= this.deleteElement(1);
 		} catch (PosException | VacioException e) {
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		return retorno;
@@ -30,7 +34,7 @@ public class ColaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 		try {
 			retorno = this.getElement(1);
 		} catch (PosException | VacioException e) {
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		return retorno;

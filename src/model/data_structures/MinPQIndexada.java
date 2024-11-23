@@ -1,7 +1,12 @@
 package model.data_structures;
 
+import java.util.logging.Logger;
+
 public class MinPQIndexada<K extends Comparable<K>, IK extends Comparable <IK>, V extends Comparable <V>> extends MinPQ<K, V>
 {
+
+    private static final Logger logger = Logger.getLogger(MinPQ.class.getName());
+    
     public MinPQIndexada(int inicial) {
 		super(inicial);
 	}
@@ -11,7 +16,7 @@ public class MinPQIndexada<K extends Comparable<K>, IK extends Comparable <IK>, 
 			arbol.insertElement(new NodoIndexedMinPQ<K, IK, V>(key, indexedKey, value), arbol.size() +1);
 		} catch (PosException | NullException e) {
 			
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
         tamano += 1;
         swim(arbol, tamano);
@@ -42,7 +47,7 @@ public class MinPQIndexada<K extends Comparable<K>, IK extends Comparable <IK>, 
     	}
     	catch (PosException | VacioException e) 
 		{
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
         
     }

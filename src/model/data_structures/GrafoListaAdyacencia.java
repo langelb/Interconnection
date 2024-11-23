@@ -1,5 +1,7 @@
 package model.data_structures;
 
+import java.util.logging.Logger;
+
 public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable <V>>
 {
 	private ITablaSimbolos<K, Vertex<K, V>> vertices; 
@@ -9,6 +11,8 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 	private ILista<Vertex<K, V>> verticesLista;
 	
 	private int numEdges;
+
+	private static final Logger logger = Logger.getLogger(MinPQ.class.getName());
 	
 	public GrafoListaAdyacencia(int numVertices)
 	{
@@ -40,7 +44,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 			Vertex<K, V> vertice= getVertex(id);
 			verticesLista.insertElement(vertice, verticesLista.size()+1);
 		} catch (PosException | NullException e) {
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 
 	}
@@ -64,7 +68,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 			{
 				arcos.insertElement(arco1, arcos.size()+1);
 			} catch (PosException | NullException e) {
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 		
@@ -133,7 +137,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 			try {
 				vertices.getElement(i).unmark();
 			} catch (PosException | VacioException e) {
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 	}
@@ -171,7 +175,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 		catch (PosException | VacioException e) 
 		{
 			
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		return minimo;
@@ -196,7 +200,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 		catch (PosException | VacioException e) 
 		{
 			
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 		}
 		
 		return maximo;
@@ -218,7 +222,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 				copia.insertVertex(actual.getId(), actual.getInfo());
 			} catch (PosException | VacioException e) {
 				
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 		
@@ -230,7 +234,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 				copia.addEdge(actual.getDestination().getId(), actual.getSource().getId(), actual.getWeight());
 			} catch (PosException | VacioException e) {
 				
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 		
@@ -275,7 +279,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 					vertices.getElement(i).topologicalOrder(pre, post, reversePost);
 				}
 			} catch (PosException | VacioException e) {
-				e.printStackTrace();
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 		
