@@ -1,426 +1,266 @@
 package model.data_structures;
 
-import java.util.Comparator;
+import java.util.Iterator;
 
-public class ListaEncadenada <T extends Comparable <T>> implements ILista<T>{
+public class ListaEncadenada<T extends Comparable<T>> implements ILista<T> {
 
-	private Nodo<T> first;
-	
-	private int size;
-	
-	private Nodo<T> last;
-	
-	public ListaEncadenada()
-	{
-		first=null;
-		last=null;
-		size=0;
-	}
-	
-	public ListaEncadenada(T element)
-	{
-		first= new Nodo<T>(element);
-		last= first;
-		size=1;
-	}
-	
-	//Siempre se llama a insert o a delete primero, esos métodos manejan los casos de que el elemento sea null, 
-	//isEmpty o que la posición no sea válida
-	public void addFirst(T element)
-	{
-		Nodo<T> actual= new Nodo<T>(element);
-		actual.setNext(first);
-		first=actual;
-	}
-	
-	//Siempre se llama a insert o a delete primero, esos métodos manejan los casos de que el elemento sea null, 
-	//isEmpty o que la posición no sea válida
-	public void addLast(T element)
-	{
-		Nodo<T> actual= new Nodo<T>(element);
-		last.setNext(actual);
-		last=actual;
-		actual.setNext(null);
-		
-	}
-	
-	public void addLastCola(T element) throws NullException
-	{
+    private Nodo<T> first; // Nodo inicial de la lista
+    private Nodo<T> last;  // Último nodo de la lista
+    private int size;      // Tamaño de la lista
 
-		 if (element==null)
-		 {
-			 throw new NullException("No es válido el elemento ingresado");
-		 }
-		 
-		else 
-		{
-			if (first==null)
-			{
-				 Nodo<T> actual= new Nodo<T>(element);
-				 last=actual;
-				 first=actual;
-			}
-			else
-			{
-				Nodo<T> actual= new Nodo<T>(element);
-				last.setNext(actual);
-				last=actual;
-				actual.setNext(null);
-			}
-			size++;
-		}
-	}
-	
-	public void insertElement(T elemento, int pos) throws PosException, NullException
-	{
-		 Nodo<T> nuevo = new Nodo<T>(elemento);
-		 
-		 if (pos<1 || pos-1 >size)
-		 {
-			 throw new PosException("La posición no es válida");
-		 }
-		 else if (elemento==null)
-		 {
-			 throw new NullException("No es válido el elemento ingresado");
-		 }
-		 
-		 else
-		 {
-			 if(isEmpty()) 
-	         {
-	             first = nuevo;
-	             last=first;
-	         }
-	         else if (pos == 1) 
-	         {
-	             this.addFirst(elemento);
-	         }
-	         else if (pos== size+1) 
-	         {
-	             this.addLast(elemento);
-	         }
-	         else 
-	         {
-	             Nodo<T> actual = first;
-	             for (int i = 0; i < pos-2; i++) 
-	             {
-	                 actual = actual.getNext();
-	             }
-	             nuevo.setNext(actual.getNext());
-	             actual.setNext(nuevo);
-	         }
-		 }
-		 size++;
-	}
-	
-	//Siempre se llama a insert o a delete primero, esos métodos manejan los casos de que el elemento sea null, 
-	//isEmpty o que la posición no sea válida
-	public T removeFirst() throws VacioException
-	{
-		T primero= firstElement();
-		if (first!=null)
-		{
-			first=first.getNext();
-		}
-	
-		return primero;
-		
-	}
-	
-	//Siempre se llama a insert o a delete primero, esos métodos manejan los casos de que el elemento sea null, 
-	//isEmpty o que la posición no sea válida
-	public T removeLast()
-	{
-		Nodo<T> penultimo= first;
-		while(penultimo.getNext().getNext()!=null)
-		{
-			penultimo=penultimo.getNext();
-		}
-		Nodo<T> ultimo= penultimo.getNext();
-		
-		penultimo.disconnectNext(penultimo);
-		last=penultimo;
-		
-		return ultimo.getInfo();
-		
-	}
-	
-	public T removeLastPila() throws VacioException
-	{
-		Nodo<T> ultimo=null;
-		if (isEmpty())
-		{
-			 throw new VacioException("La lista está vacía");
-		}
-		else if(first.getNext()!=null)
-		{
-			if(first.getNext().getNext()!=null)
-			{
-				Nodo<T> penultimo= first;
-				
-				while(penultimo.getNext().getNext()!=null)
-				{
-					penultimo=penultimo.getNext();
-				}
-				ultimo= penultimo.getNext();
-				
-				penultimo.disconnectNext(penultimo);
-				last=penultimo;
-				
-				size--;
-			}
-			else
-			{
-				Nodo<T> penultimo= first;
-				ultimo= penultimo.getNext();
-				penultimo.disconnectNext(penultimo);
-				last=penultimo;
-				size--;
-				
-			}
-			
-		}
-		else
-		{
-			ultimo= first;
-			first=null;
-		}
-		
-		return ultimo.getInfo();
-		
-		
-	}
-	
-	public T deleteElement(int pos) throws PosException, VacioException
-	{
-		T retorno=null;
-		
-		 if (pos<1 || pos >size)
-		 {
-			 throw new PosException("La posición no es válida");
-		 }
-		 else if (isEmpty())
-		 {
-			 throw new VacioException("La lista está vacía");
-		 }
-		 else
-		 {
-			if ( pos==1)
-			{
-				retorno=removeFirst();
-			}
-			else if (pos==size())
-			{
-				retorno=removeLast();
-			}
-			else 
-			{
-				Nodo<T> actual= first;
-				if(actual.getNext()!=null) 
-				{	
-					Nodo<T> anterior=null;
-					while(actual.getNext()!=null && !actual.getInfo().equals(getElement(pos-1)))
-					{
-						anterior=actual;
-						actual=actual.getNext();
-					}
-					retorno=actual.getInfo();
-					anterior.disconnectNext(anterior);
-				}
-				else 
-				{
-					Nodo<T> anterior=null;
-					
-					retorno=actual.getInfo();
-					anterior.disconnectNext(anterior);
-				}
-			}
-		}
-		
-		size--;
-		
-		return retorno;
-	}
-	
-	public T firstElement() throws VacioException
-	{
-		if (isEmpty())
-		{
-			throw new VacioException("La lista está vacía");
-		}
-		else
-		{
-			return first.getInfo();
-		}
-	}
-	
-	public T lastElement()
-	{
-		if (isEmpty())
-		{
-			return null;
-		}
-		else
-		{
-			return last.getInfo();
-		} 
-		
-	}
-	
-	public T getElement(int pos) throws PosException, VacioException
-	{
-		if (pos<1 || pos >size)
-		{
-			 throw new PosException("La posición no es válida");
-		}
-		else if(isEmpty())
-		{
-			throw new VacioException("La lista está vacía");
-		}
-		else
-		{
-			Nodo<T> actual= first;
-			
-			for(int i=0; i<pos-1;i++)
-			{
-				actual=actual.getNext();
-			}
-			return actual.getInfo();
-		}
-	}
-	
-	public int size()
-	{
-		return size;
-	}
-	
-	public boolean isEmpty()
-	{
-		return first==null;
-	}
-	
-	public int isPresent(T element) throws VacioException, NullException, PosException
-	{
-		int pos =-1;
-		if (element ==null)
-		{
-			throw new NullException("No es válido el elemento ingresado");
-		}
-		else if (isEmpty())
-		{
-			throw new VacioException("La lista está vacía");
-		}
-		else
-		{
-			boolean end=false;
-			for(int i =0; i<size &&!end;i++)
-			{
-				if(getElement(i).equals(element))
-				{
-					pos=i;
-					end=true;
-				}
-			}
-		}
+    public ListaEncadenada() {
+        first = null;
+        last = null;
+        size = 0;
+    }
 
-		return pos+1;
-	}
-	
-	public void exchange(int pos1, int pos2) throws PosException, VacioException
-	{
-		 if (pos1>size|| pos2>size || pos1<1 || pos2<1)
-		 {
-			 throw new PosException("La posición no es válida");
-		 }
-		 else if(isEmpty())
-		 {
-			 throw new VacioException("La lista está vacía");
-		 }
-		 else if ( pos1!=pos2 && size>1)
-		{
-			
-			Nodo<T> actual1= first;
-			
-			while(actual1.getNext()!=null && !actual1.getInfo().equals(getElement(pos1)))
-			{
-				actual1=actual1.getNext();
-			}
-			
-			Nodo<T> actual2= first;
-			
-			while(actual2.getNext()!=null && !actual2.getInfo().equals(getElement(pos2)))
-			{
-				actual2=actual2.getNext();
-			}
-			
-			Nodo<T> cambiado= actual1;
-			actual1.change(actual2.getInfo());
-			actual2.change(cambiado.getInfo());
+    public ListaEncadenada(T element) {
+        first = new Nodo<>(element);
+        last = first;
+        size = 1;
+    }
 
-		}
-	}
-	
-	public void changeInfo(int pos, T element) throws PosException, VacioException, NullException
-	{
-		if (pos<1 || pos >size)
-		{
-			 throw new PosException("La posición no es válida");
-		}
-		else if (isEmpty())
-		{
-			throw new VacioException("La lista está vacía");
-		}
-		else if(element==null)
-		{
-			throw new NullException("No es válido el elemento ingresado");
-		}
-		else
-		{
-			Nodo<T> actual= first;
-			for(int i=0; i<pos-1;i++)
-			{
-				actual=actual.getNext();
-			}
-			
-			actual.change(element);
-			 
-		}
+    @Override
+    public void addFirst(T element) {
+        Nodo<T> newNode = new Nodo<>(element);
+        newNode.setNext(first);
+        first = newNode;
+        if (last == null) {
+            last = first;
+        }
+        size++;
+    }
 
-	}
-	
-	public ILista<T> sublista(int pos, int numElementos) throws PosException, VacioException, NullException
-	{
-		if (isEmpty())
-		{
-			throw new VacioException("La lista está vacía");
-		}
-		else if (numElementos<0)
-		{
-			throw new PosException("La cantidad de elementos no es válida");
-		}
-		else if (numElementos >= size())
-		{
-			return this;
-		}
-		else
-		{
-			ILista<T> copia= new ListaEncadenada();
-			
-			int contador=pos;
-			for(int i=0; i<numElementos; i++)
-			{
-				copia.insertElement(this.getElement(contador), i+1);
-				contador++;
-			}
-			
-			return copia;
-		}
-		
-	}
+    @Override
+    public void addLast(T element) throws NullException{
+        Nodo<T> newNode = new Nodo<>(element);
+        if (last != null) {
+            last.setNext(newNode);
+        }
+        last = newNode;
+        if (first == null) {
+            first = last;
+        }
+        size++;
+    }
 
-	@Override
-	public int compareTo(ILista o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public void insertElement(T element, int pos) throws PosException, NullException {
+        if (pos < 1 || pos > size + 1) {
+            throw new PosException("La posición no es válida");
+        }
+        if (element == null) {
+            throw new NullException("El elemento no puede ser nulo");
+        }
+        if (pos == 1) {
+            addFirst(element);
+        } else if (pos == size + 1) {
+            addLast(element);
+        } else {
+            Nodo<T> current = first;
+            for (int i = 1; i < pos - 1; i++) {
+                current = current.getNext();
+            }
+            Nodo<T> newNode = new Nodo<>(element);
+            newNode.setNext(current.getNext());
+            current.setNext(newNode);
+            size++;
+        }
+    }
+
+    @Override
+    public T removeFirst() throws VacioException {
+        if (isEmpty()) {
+            throw new VacioException("La lista está vacía");
+        }
+        T element = first.getInfo();
+        first = first.getNext();
+        if (first == null) {
+            last = null;
+        }
+        size--;
+        return element;
+    }
+
+    @Override
+    public T removeLast() throws VacioException {
+        if (isEmpty()) {
+            throw new VacioException("La lista está vacía");
+        }
+        if (size == 1) {
+            T element = first.getInfo();
+            first = null;
+            last = null;
+            size = 0;
+            return element;
+        }
+        Nodo<T> current = first;
+        while (current.getNext() != last) {
+            current = current.getNext();
+        }
+        T element = last.getInfo();
+        last = current;
+        last.setNext(null);
+        size--;
+        return element;
+    }
+
+    @Override
+    public T deleteElement(int pos) throws PosException, VacioException {
+        if (isEmpty()) {
+            throw new VacioException("La lista está vacía");
+        }
+        if (pos < 1 || pos > size) {
+            throw new PosException("La posición no es válida");
+        }
+        if (pos == 1) {
+            return removeFirst();
+        }
+        if (pos == size) {
+            return removeLast();
+        }
+        Nodo<T> current = first;
+        for (int i = 1; i < pos - 1; i++) {
+            current = current.getNext();
+        }
+        T element = current.getNext().getInfo();
+        current.setNext(current.getNext().getNext());
+        size--;
+        return element;
+    }
+
+    @Override
+    public T firstElement() throws VacioException {
+        if (isEmpty()) {
+            throw new VacioException("La lista está vacía");
+        }
+        return first.getInfo();
+    }
+
+    @Override
+    public T lastElement() throws VacioException {
+        if (isEmpty()) {
+            throw new VacioException("La lista está vacía");
+        }
+        return last.getInfo();
+    }
+
+    @Override
+    public T getElement(int pos) throws PosException, VacioException {
+        if (isEmpty()) {
+            throw new VacioException("La lista está vacía");
+        }
+        if (pos < 1 || pos > size) {
+            throw new PosException("La posición no es válida");
+        }
+        Nodo<T> current = first;
+        for (int i = 1; i < pos; i++) {
+            current = current.getNext();
+        }
+        return current.getInfo();
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public int isPresent(T element) throws VacioException, NullException {
+        if (element == null) {
+            throw new NullException("El elemento no puede ser nulo");
+        }
+        if (isEmpty()) {
+            throw new VacioException("La lista está vacía");
+        }
+        Nodo<T> current = first;
+        for (int i = 1; current != null; i++) {
+            if (current.getInfo().equals(element)) {
+                return i;
+            }
+            current = current.getNext();
+        }
+        return -1; // No encontrado
+    }
+
+    @Override
+    public void exchange(int pos1, int pos2) throws PosException, VacioException, NullException {
+        if (pos1 < 1 || pos1 > size || pos2 < 1 || pos2 > size) {
+            throw new PosException("Las posiciones no son válidas");
+        }
+        if (isEmpty()) {
+            throw new VacioException("La lista está vacía");
+        }
+        T elem1 = getElement(pos1);
+        T elem2 = getElement(pos2);
+        changeInfo(pos1, elem2);
+        changeInfo(pos2, elem1);
+    }
+
+    @Override
+    public void changeInfo(int pos, T element) throws PosException, VacioException, NullException {
+        if (element == null) {
+            throw new NullException("El elemento no puede ser nulo");
+        }
+        if (pos < 1 || pos > size) {
+            throw new PosException("La posición no es válida");
+        }
+        if (isEmpty()) {
+            throw new VacioException("La lista está vacía");
+        }
+        Nodo<T> current = first;
+        for (int i = 1; i < pos; i++) {
+            current = current.getNext();
+        }
+        current.change(element);
+    }
+
+    @Override
+    public ILista<T> sublista(int pos, int numElementos) throws PosException, VacioException, NullException {
+        if (isEmpty()) {
+            throw new VacioException("La lista está vacía");
+        }
+        if (pos < 1 || pos > size) {
+            throw new PosException("La posición no es válida");
+        }
+        ILista<T> sublista = new ListaEncadenada<>();
+        Nodo<T> current = first;
+        for (int i = 1; i < pos; i++) {
+            current = current.getNext();
+        }
+        for (int i = 0; i < numElementos && current != null; i++) {
+            sublista.addLast(current.getInfo());
+            current = current.getNext();
+        }
+        return sublista;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private Nodo<T> current = first;
+
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public T next() {
+                T data = current.getInfo();
+                current = current.getNext();
+                return data;
+            }
+        };
+    }
+
+    @Override
+    public int compareTo(ILista<T> otraLista) {
+        return Integer.compare(this.size(), otraLista.size());
+    }
 }

@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.Scanner;
 import utils.MenuHandler;
 import model.logic.Modelo;
 import view.View;

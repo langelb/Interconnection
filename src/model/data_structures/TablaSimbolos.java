@@ -19,7 +19,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 		} 
 		catch (PosException | NullException e) 
 		{
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
@@ -51,7 +51,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 			} 
 			catch (PosException | VacioException e) 
 			{
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}
@@ -70,7 +70,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 		} 
 		catch (VacioException | NullException | PosException e) 
 		{
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -88,7 +88,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 		} 
 		catch (VacioException | NullException | PosException e) 
 		{
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -123,7 +123,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 			} 
 			catch (PosException | NullException | VacioException e) 
 			{
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}
@@ -142,7 +142,7 @@ public class TablaSimbolos <K extends Comparable<K>, V extends Comparable <V>> i
 			} 
 			catch (PosException | VacioException| NullException e) 
 			{
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}

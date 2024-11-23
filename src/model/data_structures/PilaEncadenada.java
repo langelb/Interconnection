@@ -5,9 +5,8 @@ public class PilaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 	public void push(T element)
 	{
 		try {
-			this.addLastCola(element);
+			this.addLast(element);
 		} catch (NullException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -16,9 +15,8 @@ public class PilaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 	{
 		try 
 		{
-			return this.removeLastPila();
+			return this.removeLast();
 		} catch (VacioException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -26,8 +24,11 @@ public class PilaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 	
 	public T top()
 	{
-
-		return this.lastElement();
-
+		try {
+			return this.lastElement();
+		} catch (VacioException e) {
+			e.printStackTrace();
+			return null; // Retornar un valor por defecto si ocurre la excepción
+		}
 	}
 }

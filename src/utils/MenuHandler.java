@@ -21,17 +21,19 @@ public class MenuHandler {
             view.printMenu();
             int option = lector.nextInt();
             switch (option) {
-                case 1 -> {
+                case 1 :
                     view.printMessage("Loading data...");
-                    modelo = new Modelo(1);
+                    modelo = new Modelo();
                     view.printModelo(modelo);
-                }
-                case 7 -> {
+                    break;
+                case 7 :
                     view.printMessage("Goodbye!");
                     lector.close();
                     fin = true;
-                }
-                default -> view.printMessage("Invalid option!");
+                    break;
+                default :
+                    view.printMessage("Invalid option!");
+                    break;
             }
         }
     }
