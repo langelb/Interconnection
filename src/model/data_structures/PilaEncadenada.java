@@ -1,7 +1,11 @@
 package model.data_structures;
 
+import java.util.logging.Logger;
+
 public class PilaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T> 
 {
+	private static final Logger logger = Logger.getLogger(MinPQ.class.getName());
+	
 	public void push(T element)
 	{
 		try {
@@ -27,7 +31,7 @@ public class PilaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 		try {
 			return this.lastElement();
 		} catch (VacioException e) {
-			e.printStackTrace();
+			logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			return null; // Retornar un valor por defecto si ocurre la excepción
 		}
 	}

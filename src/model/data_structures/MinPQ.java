@@ -1,15 +1,19 @@
 package model.data_structures;
 
+import java.util.logging.Logger;
+
 public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 {
 	protected ILista<NodoTS<K, V>> arbol;
 	
 	protected int tamano;
 	
+	private static final Logger logger = Logger.getLogger(MinPQ.class.getName());
+	
 	public MinPQ(int inicial)
 	{
 		arbol= new ArregloDinamico<NodoTS<K, V>>(inicial);
-		tamano=0;
+		tamano=0;		
 	}
 	
 	public void swim(ILista<NodoTS<K, V>> lista, int pos)
@@ -133,7 +137,7 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 				retornar = arbol.removeLast();
 				tamano--;
 			} catch (VacioException e) {
-				e.printStackTrace(); // Manejo de la excepción en caso de lista vacía
+				logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
 			}
 		}
 		

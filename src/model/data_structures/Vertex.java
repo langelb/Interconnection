@@ -1,12 +1,14 @@
 package model.data_structures;
 
+import java.util.logging.Logger;
+
 public class Vertex<K extends Comparable<K>, V extends Comparable<V>> implements Comparable<Vertex<K, V>> {
     private K key; 
     private V value; 
     private ILista<Edge<K, V>> edges;
     private ILista<Edge<K, V>> incomingEdges;
     private boolean marked; 
-
+    private static final Logger logger = Logger.getLogger(MinPQ.class.getName());
     
     public Vertex(K id, V value) {
         this.key = id;
@@ -126,7 +128,7 @@ public class Vertex<K extends Comparable<K>, V extends Comparable<V>> implements
                     }
                 }
             } catch (VacioException e) {
-                e.printStackTrace(); // Manejo de la excepción si la cola está vacía
+                logger.severe("Error: La lista está vacía. Detalles: " + e.getMessage());
             }
         }
     }
