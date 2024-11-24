@@ -118,51 +118,26 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 		
 	}
 
-	public T deleteElement(T dato) throws VacioException, NullException
-	{
-		
-		// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-		T elemento=null;
-		
+	public T deleteElement(T dato) throws VacioException, NullException {
+	    if (isEmpty()) {
+	        throw new VacioException(LISTA_VACIA);
+	    }
+	    if (dato == null) {
+	        throw new NullException("No es válido el elemento ingresado");
+	    }
 
-			if (isEmpty())
-			{
-				throw new VacioException(LISTA_VACIA);
-			}
-			else if (dato==null)
-			{
-				throw new NullException("No es válido el elemento ingresado");
-			}
-			else
-			{
-			boolean ya=false;
-			
-			T [ ] copia = elementos;
-			elementos= (T[])new Comparable[tamanoMax];
-		
-			for (int i=0; i< copia.length && !ya; i++)
-			{
-
-				if (copia[i].compareTo(dato)==0)
-				{
-					for (int j = i; j < copia.length - 1; j++) 
-					{
-						elementos[j] = copia[j+1];
-					}
-					
-					elemento=copia[i];
-					ya=true;
-					tamanoAct=tamanoAct-1;
-				}
-				else
-				{
-					elementos[i]=copia[i];
-				}
-			}
-			}
-		
-		return elemento;
-		
+	    for (int i = 0; i < tamanoAct; i++) {
+	        if (elementos[i].compareTo(dato) == 0) {
+	            T elemento = elementos[i];
+	            int numMoved = tamanoAct - i - 1;
+	            if (numMoved > 0) {
+	                System.arraycopy(elementos, i + 1, elementos, i, numMoved);
+	            }
+	            elementos[--tamanoAct] = null;
+	            return elemento;
+	        }
+	    }
+	    return null;
 	}
 	
 	//Siempre se llama a insert o a delete primero, esos métodos manejan los casos de que el elemento sea null, 
@@ -248,53 +223,31 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 
 
 	@Override
-	public T deleteElement(int pos) throws PosException, VacioException 
-	{
-		T elemento=null;
-		
-		if (pos>tamanoMax)
-		{
-			throw new PosException("La posición no es válida");
-		}
-		else if (pos<1)
-		{
-			throw new PosException("La posición no es válida");
-		}
-		else if (isEmpty())
-		{
-			throw new VacioException(LISTA_VACIA);
-		}
-		else
-		{
-			elemento=elementos[pos];
-			if (pos==1)
-			{
-				removeFirst();
-			}
-			else if (pos==tamanoAct)
-			{
-				removeLast();
-			}
-			else
-			{
-				T [ ] copia = elementos;
-				elementos= (T[])new Comparable[tamanoMax];
-			
-				for (int i=0; i<pos-1; i++)
-				{
-					elementos[i]=copia[i];
-				}
-				
-				for(int i=pos-1; i<tamanoAct; i++)
-				{
-					elementos[i]=copia[i+1];
-				}
-				tamanoAct--;
-			}
-		}
+	public T deleteElement(int pos) throws PosException, VacioException {
+	    if (isEmpty()) {
+	        throw new VacioException(LISTA_VACIA);
+	    }
 
-		return elemento;
+	    if (pos < 1 || pos > tamanoAct) {
+	        throw new PosException("La posición no es válida");
+	    }
+
+	    T elemento = elementos[pos - 1];
+
+	    if (pos == 1) {
+	        removeFirst();
+	    } else if (pos == tamanoAct) {
+	        removeLast();
+	    } else {
+	        int numMoved = tamanoAct - pos;
+	        System.arraycopy(elementos, pos, elementos, pos - 1, numMoved);
+	        elementos[tamanoAct - 1] = null;
+	        tamanoAct--;
+	    }
+
+	    return elemento;
 	}
+
 
 
 	@Override
