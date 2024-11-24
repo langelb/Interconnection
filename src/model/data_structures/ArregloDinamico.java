@@ -193,52 +193,24 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 	}
 
 	@Override
-	public void insertElement(T elemento, int pos) throws PosException, NullException 
-	{
-		if (pos-1>tamanoMax)
-		{
-			throw new PosException("La posición no es válida");
-		}
-		else if (pos<1)
-		{
-			throw new PosException("La posición no es válida");
-		}
-		else
-		{
-			if (pos==1)
-			{
-				addFirst(elemento);
-			}
-			else if (tamanoAct+1==pos)
-			{
-				addLast(elemento);
-				
-			}
-			else
-			{
-				if ( tamanoAct == tamanoMax )
-				{
-						tamanoMax = 2 * tamanoMax; 
-				}
-				T [ ] copia = elementos;
-				elementos = (T[])new Comparable[tamanoMax];
-				
-				for (int i=0; i<pos-1; i++)
-				{
-					elementos[i]= copia[i];
-				}
-				
-				elementos[pos-1]=elemento;
-				
-				for(int i=pos; i<tamanoAct; i++)
-				{
-					elementos[i]=copia[i-1];
-				}
-			}
-			
-			tamanoAct++;
-		}
-		
+	public void insertElement(T elemento, int pos) throws PosException, NullException {
+	    if (pos < 1 || pos > tamanoAct + 1) {
+	        throw new PosException("La posición no es válida");
+	    }
+
+	    if (tamanoAct == tamanoMax) {
+	        tamanoMax *= 2;
+	        T[] newElementos = (T[]) new Comparable[tamanoMax];
+	        System.arraycopy(elementos, 0, newElementos, 0, tamanoAct);
+	        elementos = newElementos;
+	    }
+
+	    if (pos <= tamanoAct) {
+	        System.arraycopy(elementos, pos - 1, elementos, pos, tamanoAct - (pos - 1));
+	    }
+
+	    elementos[pos - 1] = elemento;
+	    tamanoAct++;
 	}
 
 
